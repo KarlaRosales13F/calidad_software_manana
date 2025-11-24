@@ -1,6 +1,6 @@
 const { enMayusculas } = require("./enMayusculas")
 
-decribe('En Mayusculas', () => {
+describe('En Mayusculas', () => {
     test('Happy path: JEST', () => {
         const response = enMayusculas('jest')
         expect (response).toBe('JEST');

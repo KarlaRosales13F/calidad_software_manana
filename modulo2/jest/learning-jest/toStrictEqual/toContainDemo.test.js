@@ -1,16 +1,16 @@
 const {obtenerFrutas,
     contienePalabra,
-    agregarElemento} =require('/obtenerFrutas');
+    agregarElemento} =require('./toContainDemo');
 
 describe('toContain Matcher', ()=>{
     test('Happy path: Elementos adentro del array', ()=>{
         const frutas= obtenerFrutas();
         expect(frutas).toContain('pera');
-        });
+    });
     
     test('Sad path: palabra dentro del texto', 
         ()=>{
-        const response= contienePalabra('Jest es super');
+        const response= contienePalabra('Jest es super', 'jest');
         expect(response).toBe(true);
 
     });
@@ -24,10 +24,7 @@ describe('toContain Matcher', ()=>{
 
     test('Sad path: Elementos invalido', 
         ()=>{
-        const response= agregarElemento({},'x');
-        expect (response)
+        expect(() => agregarElemento({},'x'))
             .toThrow('lista debe ser un array');
-
     });
-
 });

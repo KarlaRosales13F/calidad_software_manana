@@ -3,17 +3,22 @@ function obtenerFrutas(){
 }
 
 function contienePalabra(texto, palabra){
-    if(typeof text!=='string' || typeof palabra != 'string')
-        throw new TypeError('Ambos argumentos')
+    if (typeof texto !== 'string' || typeof palabra !== 'string') {
+        throw new TypeError('Ambos argumentos deben ser strings');
+    }
     return texto.toLowerCase()
-        .includes(palabra.toLowerCase);
+        .includes(palabra.toLowerCase());
 }
-function agregarElemento(lista,elemento){
-    if(!Array.isArray(lista))
-        throw new TypeError('Lista debe ser array');
-    if(!elemento)
-        throw new TypeError('Elemento no puede ser ');
+
+function agregarElemento(lista, elemento) {
+    if (!Array.isArray(lista)) {
+        throw new TypeError('lista debe ser un array');
+    }
+    if (elemento === undefined || elemento === null || elemento === '') {
+        throw new TypeError('Elemento no puede ser vacío');
+    }
+    lista.push(elemento);
     return lista;
 }
 
-module.exports={obtenerFrutas, contienePalabra}
+module.exports={obtenerFrutas, contienePalabra, agregarElemento}

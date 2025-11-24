@@ -1,46 +1,43 @@
-function validarObjeto(objeto, nombre='obj'){
-    if(!objeto 
-        || typeof objeto !=='object'
-        || !Array.isArray(objeto)
-    ){
-        throw new TypeError(`${nombre} debe ser objeto`);
-    }
-}
+const { deepMerge, normalizarAlumno } = require('./deepMerge');
 
-function deepMerge(objeto1, objeto2){
-    validarObjeto(objeto1,  objeto2);
-    validarObjeto(objeto1, ' objeto2');
-    const salida = {...objeto};
-    for (const [k,v] of Object.entries(nombre)){
-        if (k && typeof v === 'object'
-            && !Array.isArray(v) 
-            && typeof salida[k] === 'object' 
-            && !Array.isArray(salida[k])
-        ) {
-            salida[k]= {...salida[k], ...v};
-        } else {
-            salida[k]=v;
+describe('Igualdad profunda', () => {
+    test('Happy path: deepMerge combina objetos anidados por valor', () => {
+        const a= {
+            user:
+            {nombre: 'Ana', rol: 'estudiante'},
+            activo: true
         }
-    }
-    return salida;
-}
+        const b= {
+            user:
+            {rol: 'tutor'},
+            activo: true,
+            extra: 1
+        }
+        const response = deepMerge(a,b)
+        expect(response).toEqual(
+            {
+                user:
+                {nombre: 'Ana', rol: 'tutor'},
+                activo: true,
+                extra: 1
+            }
+        );
+    });
 
-function normalizarAlumno(alumno){
-    validarObjeto(alumno,'alumno');
-    const {nombre, notas}=alumno;
-    if (typeof nombre!=='string' || !Array.isArray(notas)){
-        throw new TypeError(
-            'alumno.nombre debe ser string y'+ 
-            'alumno.notas debe ser array')
-    }
-    const valid = notas.every(n=>typeof n =='number' && !NumberisNan(m));
-    if (!valid) 
-        throw new TypeError('notas debe contener números válidos')
-    const promedio= notas.length ?
-        notas.reduce(alumno,b=>a+b,0)/notas.length
-        :0;
-return {nombre: nombre.trim(), notas: [notas], promedio};
-
-}
-
-module.exports={deepMerge, normalizarAlumno}
+    test('Happy path: normalizarAlumno retorna estructura con promedio', () => {
+        const alumno = {nombre: 'Ana', notas:[8,9,7]}
+        const response = normalizarAlumno(alumno);
+        expect(response).toEqual(
+            {nombre: 'Ana', notas:[8,9,7], promedio: 8}
+        );
+    });
+    
+    test('Sad path: deepMerge con parametros inválidos',
+        () => {
+            expect(() => deepMerge(null, {})
+                ).toThrow('objeto1 debe ser objeto');
+            expect(() => deepMerge({}, null))
+                .toThrow('objeto2 debe ser objeto');
+        }
+    );
+});

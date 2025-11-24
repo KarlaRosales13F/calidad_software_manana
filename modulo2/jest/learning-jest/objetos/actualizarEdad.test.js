@@ -1,4 +1,4 @@
-const {actualizarEdad} = requiere('./actualizarEdad')
+const {actualizarEdad} = require('./actualizarEdad')
 
 describe('Actualizar Edad', () => {
     test('Happy path: 30 -> 30', () => {
@@ -8,7 +8,7 @@ describe('Actualizar Edad', () => {
                 edad: 39
             }, 60
         )
-        expect (response.edad).toBe(60);
+        expect(response.edad).toBe(60);
     });
     test('Sad path: persona / edad invalidos',
         () => {
@@ -16,6 +16,6 @@ describe('Actualizar Edad', () => {
                 null, 10
             )).toThrow('persona invalida');
             expect(() => actualizarEdad ({}, -1))
-                .toThrow('edad ivalida');
+                .toThrow('edad invalida');
         });
 });

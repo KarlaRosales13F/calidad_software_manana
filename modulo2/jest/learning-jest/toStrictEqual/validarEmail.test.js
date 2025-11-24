@@ -1,17 +1,25 @@
-const { validarEmail } = require('./validarEmail');
+const { validarEmail, encontrarPalabra, limpiarTexto } = require('./validarEmail');
 
-describe('validarEmail', () => {
-    test('Happy Path: formato de email correcto', () => {
-        const resultado = validarEmail('ejemplito@ejemplo.com');
-        expect(resultado).toBe(true);
+describe('toMatch matcher', () => {
+
+    test('Happy Path: validar correos electronicos', () => {
+        expect('usuario@email.com')
+            .toMatch(/^[\w.-]+@[\w.-]+\.[a-z]{2,}$/i);
+        expect(validarEmail('alguien@dominio.ec')).toBe(true);
     });
-    test('Sad Path: email incorrecto', () => {
-        const resultado = validarEmail('ejemplito2@ejemplo.com');
-        expect(resultado).toBe(false);
+
+    test('Happy path: encontrar palabra con regex', () => {
+        expect(encontrarPalabra('Hola Jest', 'jest')).toBe(true);
     });
-    test('Sad Path: Elementos invalidos', () => {
-        expect(() => {
-            validarEmail(12345);
-        }).toThrow('email debe ser string');
+
+    test('Sad Path: Email o patron inválido', () => {
+        expect(() => validarEmail(123)).toThrow('email debe ser string');
+        expect(() => encontrarPalabra('Texto', 123))
+            .toThrow('texto y patron deben ser strings');
+    });
+
+    test('Happy/Sad path: limpiar texto', () => {
+        expect(limpiarTexto(' Hola mundo ')).toMatch(/^Hola mundo$/);
+        expect(() => limpiarTexto(null)).toThrow('texto debe ser string');
     });
 });

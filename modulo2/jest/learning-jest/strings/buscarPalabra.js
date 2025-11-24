@@ -1,19 +1,8 @@
-function contarPalabras(texto){
-    if(!texto || typeof texto !== 'string'){
+function contarPalabras(texto) {
+    if (typeof texto !== 'string' || !texto.trim()) {
         throw new TypeError("frase inválida");
     }
-    const textoTrimmed = texto.trim();
-    if (textoTrimmed === '')
-        throw new TypeError("frase inválida");
-    return textoTrimmed.split(/\s+/).length;
+    return texto.trim().split(/\s+/).length;
 }
 
 module.exports = { contarPalabras };
-
-
-
-
-
-
-
-

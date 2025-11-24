@@ -1,5 +1,5 @@
 function enMayusculas(texto){
-    if(!texto || !typeof texto=='string'){
+    if (typeof texto !== 'string' || !texto.trim()) {
         throw new TypeError ("texto invalido");
     }
     return texto.toUpperCase();

@@ -1,4 +1,4 @@
-const { contarPalabras } = require('./contarPalabras');
+const { contarPalabras } = require('./buscarPalabra');
 
 describe('Contar Palabras', () => {
     test('Happy path: Hola Mundo Jest -> 3', () => {

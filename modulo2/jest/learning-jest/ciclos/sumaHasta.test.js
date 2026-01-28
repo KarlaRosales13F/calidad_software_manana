@@ -1,7 +1,7 @@
-const {sumaHasta} = requiere('./sumaHasta');
+const { sumaHasta }= require('./sumaHasta');
 
 describe('sumaHasta', ()=>{
-    test('Happy path:numero 5 suma es ', () => {
+    test('Happy path: numero 5 suma es', () => {
         expect(sumaHasta(5)).toBe(15);
     });
     test('Happy path: numero 1 suma es ', () => {

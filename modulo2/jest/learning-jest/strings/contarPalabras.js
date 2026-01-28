@@ -1,6 +1,6 @@
 function contarPalabras(texto){
     if(!texto || !typeof texto== 'string'){
-        throw new TypeError
+        throw new TypeError("frase invalida");
     }
     const textoTrimmed = texto.trim();
     if (textoTrimmed ==='')
